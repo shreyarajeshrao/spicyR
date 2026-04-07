@@ -926,7 +926,14 @@ inhomLPair <- function(data,
     p$wt <- 1 / w[p$j] * mean(w)
     rm(np)
   }
-
+  
+  # modify the weights (initially set to 1 if sigma = NULL)
+  # multiply weights of cell j (the neighbour cell) by confidenceScore
+  if (!is.null(data$confidenceScore)) {
+    cW <- data$confidenceScore
+    names(cW) <- data$cellID
+    p$wt <- p$wt * cW[p$j]
+  }
 
   lam <- table(data$cellType) / spatstat.geom::area(X)
 

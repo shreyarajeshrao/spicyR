@@ -128,7 +128,7 @@ getCellSummary <- function(
         dplyr::filter(
             if (!is.null(!!imageID)) imageID == !!imageID else TRUE
         ) %>%
-        dplyr::select(imageID, cellID, imageCellID, x, y, cellType) %>%
+        dplyr::select(imageID, cellID, imageCellID, x, y, cellType, dplyr::any_of("confidenceScore")) %>%
         # dplyr::mutate(imageID = factor(imageID, levels = unique(imageID))) %>%
         S4Vectors::DataFrame() %>%
         {
